@@ -33,6 +33,8 @@ namespace omscase
             var connectionstring = Configuration.GetConnectionString("DefaultConnectionString");
             services.AddDbContext<AppDbContext> (options => options.UseSqlServer(connectionstring));
             services.AddScoped<ICustomer, CustomerRepo>();
+            services.AddScoped<IProduct, ProductRepo>();
+            services.AddScoped<IOrder, OrderRepo>();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Info

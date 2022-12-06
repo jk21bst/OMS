@@ -17,16 +17,23 @@ namespace omscase.Repository
 
         }
 
-        public async Task<Customer> AddCustomer(Customer customer)
-        {
-            var result = await _context.Customers.AddAsync(customer);
-            await _context.SaveChangesAsync();
-            return result.Entity;
-        }
+        //public async Task<Customer> AddCustomer(Customer customer)
+        //{
+        //    var result = await _context.Customers.AddAsync(customer);
+        //    await _context.SaveChangesAsync();
+        //    return result.Entity;
+        //}
 
-        public Task<Customer> AddNewCustomer(Customer customer)
+        public async Task<int> AddNewCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            _context.Customer.Add(customer);
+          
+            int res = await _context.SaveChangesAsync();
+                if(res > 0)
+            {
+                return 1;
+            }
+            return 0;
         }
 
         //public Task<Customer> AddNewCustomer(Customer customer)
@@ -36,11 +43,13 @@ namespace omscase.Repository
 
         public async Task<Customer> DeleteCustomer(int id)
         {
-            var result = await _context.Customers.FirstOrDefaultAsync(c => c.custid == id);
+            var result = await _context.Customer.FirstOrDefaultAsync(c => c.custid == id);
             if (result != null)
             {
-                _context.Customers.Remove(result);
+                _context.Customer.Remove(result);
+
                 await _context.SaveChangesAsync();
+                return result;
             }
             return null;
         }
@@ -51,7 +60,7 @@ namespace omscase.Repository
         //}
         public async Task<Customer> GetCustomerByUsername(string username)
         {
-            return await _context.Customers
+            return await _context.Customer
                    .FirstOrDefaultAsync(e => e.username == username);
         }
         //public Task<Customer> GetCustomerByUsername(string username)
@@ -60,13 +69,26 @@ namespace omscase.Repository
         //}
         public async Task<IEnumerable<Customer>> GetCustomers()
         {
-            var ar = await _context.Customers.ToListAsync();
+            var ar = await _context.Customer.ToListAsync();
             return ar;
+        }
+
+        public async Task<Customer> Login(string username, string password)
+        {
+            var result = await _context.Customer.FirstOrDefaultAsync(e => (e.username).Equals(username) && (e.password).Equals( password));
+            if(result != null)
+            {
+                return result;
+
+            }
+            return result;
+           
+
         }
 
         public async Task<Customer> UpdateCustomer(Customer customer)
         {
-            var result = await _context.Customers.FirstOrDefaultAsync(e => e.custid == customer.custid);
+            var result = await _context.Customer.FirstOrDefaultAsync(e => e.custid == customer.custid);
             if (result != null)
             {
                 result.custname = customer.custname;

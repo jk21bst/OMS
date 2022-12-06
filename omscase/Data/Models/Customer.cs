@@ -33,6 +33,6 @@ namespace omscase.Data.Models
 
 
 
-        public int mobileno { get; set; }
+        public double mobileno { get; set; }
     }
 }
