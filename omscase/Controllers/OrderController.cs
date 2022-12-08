@@ -62,7 +62,7 @@ namespace omscase.Controllers
 
 
         [HttpGet("getorder-bycustomerid")]
-        public async Task<IActionResult> GetOrderByCustomerId(string custid)
+        public async Task<IActionResult> GetOrderByCustomerId(int custid)
         {
             var ar = await _order.GetOrderByCustomerId(custid);
             if (ar != null)

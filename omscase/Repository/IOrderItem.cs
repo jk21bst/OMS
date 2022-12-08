@@ -10,7 +10,7 @@ namespace omscase.Repository
     {
         Task<IEnumerable<Orderitem>> GetOrderItems();
         Task<Orderitem> GetOrderitemBySpecificId(int specific_id);
-        Task<Orderitem> GetOrderitemByOrderId(int orderid);
+        Task<Orderitem> GetOrderitemByOrderId(int order_id);
         Task<Orderitem> DeleteOrderitemBySpecificId(int specific_id);
         Task<Orderitem> UpdateOrderitemBySpecificid(Orderitem orderitem);
         Task<int> AddOrderitem(Orderitem orderitem);

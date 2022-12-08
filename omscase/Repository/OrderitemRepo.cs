@@ -41,24 +41,37 @@ namespace omscase.Repository
            
         }
 
-        public Task<Orderitem> GetOrderitemByOrderId(int orderid)
+        public async Task<Orderitem> GetOrderitemByOrderId(int order_id)
         {
-            throw new NotImplementedException();
+            return await _context.Orderitems.Where(x=> x.order_id == order_id)
+                .FirstOrDefaultAsync();
         }
 
-        public Task<Orderitem> GetOrderitemBySpecificId(int specific_id)
+        public async Task<Orderitem> GetOrderitemBySpecificId(int specific_id)
         {
-            throw new NotImplementedException();
+            return await _context.Orderitems.FirstOrDefaultAsync(e => e.specific_id == specific_id);
         }
 
-        public Task<IEnumerable<Orderitem>> GetOrderItems()
+        public async Task<IEnumerable<Orderitem>> GetOrderItems()
         {
-            throw new NotImplementedException();
+          var ar = await _context.Orderitems.ToListAsync();
+            return ar;
         }
 
-        public Task<Orderitem> UpdateOrderitemBySpecificid(Orderitem orderitem)
+        public async Task<Orderitem> UpdateOrderitemBySpecificid(Orderitem orderitem)
         {
-            throw new NotImplementedException();
+            var ar = await _context.Orderitems.FirstOrDefaultAsync(e => e.order_id == orderitem.order_id);
+            if(ar != null)
+            {
+                ar.order_status = orderitem.order_status;
+                ar.price = orderitem.price;
+                ar.quantity = orderitem.quantity;
+
+                _context.Entry(ar).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return ar;
+            }
+            return ar;
         }
     }
 }

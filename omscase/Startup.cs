@@ -35,6 +35,7 @@ namespace omscase
             services.AddScoped<ICustomer, CustomerRepo>();
             services.AddScoped<IProduct, ProductRepo>();
             services.AddScoped<IOrder, OrderRepo>();
+            services.AddScoped<IOrderItem, OrderitemRepo>();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Info

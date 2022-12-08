@@ -24,5 +24,10 @@ namespace omscase.Data.Models
         public int quantity { get; set; }
         public int price { get; set; }
 
+
+        [ForeignKey("productid")]
+        public int prodid { get; set; }
+        public Product productid { get; set; }
+
     }
 }
