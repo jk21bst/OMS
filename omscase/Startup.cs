@@ -36,6 +36,7 @@ namespace omscase
             services.AddScoped<IProduct, ProductRepo>();
             services.AddScoped<IOrder, OrderRepo>();
             services.AddScoped<IOrderItem, OrderitemRepo>();
+            services.AddCors();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Info
@@ -56,6 +57,7 @@ namespace omscase
             }
 
             app.UseMvc();
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
 
             app.UseSwagger();
